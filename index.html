@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Watermark — Free Batch Photo Watermarking (Text or Logo) | S3eidat Tools</title>
+<meta name="description" content="Add a text or logo watermark to many photos at once: 9 positions or tiled, opacity, size, rotation, margin, live preview, zip download. Free and private, nothing uploaded.">
+<meta property="og:title" content="Watermark — free, private batch photo watermarking">
+<meta property="og:description" content="Text or logo watermarks on many photos at once. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="watermark">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Watermark</h1>
+    <p>Protect your photos with a text or logo watermark. Set it once, preview it live, and apply it to a whole batch. Your photos stay on your device.</p>
+  </section>
+
+  <div class="wm-grid">
+    <section class="card stack">
+      <label class="drop wm-drop" id="drop">
+        <input type="file" accept="image/*" multiple hidden>
+        <svg class="i"><use href="#i-upload"/></svg>
+        <b>Drop photos here</b>
+        <span class="faint">many at once · or paste</span>
+      </label>
+
+      <div class="seg" id="kind" role="group" aria-label="Watermark type">
+        <button aria-pressed="true" data-v="text">Text</button>
+        <button aria-pressed="false" data-v="logo">Logo</button>
+      </div>
+      <div class="stack" id="textBox">
+        <label class="field">Watermark text<input class="input" id="text" dir="auto" value="© Your Name"></label>
+        <div class="row">
+          <label class="field">Color<input type="color" id="color" value="#ffffff"></label>
+          <label class="field grow">Weight
+            <select class="select" id="weight"><option value="500">Regular</option><option value="700" selected>Bold</option><option value="900">Black</option></select>
+          </label>
+          <label class="check wm-sh"><input type="checkbox" id="shadow" checked> Shadow</label>
+        </div>
+      </div>
+      <div class="stack" id="logoBox" hidden>
+        <label class="drop wm-drop" id="logoDrop">
+          <input type="file" accept="image/*,.svg" hidden>
+          <svg class="i"><use href="#i-image"/></svg>
+          <b id="logoLbl">Choose a logo</b>
+          <span class="faint">a PNG with transparency works best</span>
+        </label>
+      </div>
+
+      <div class="wm-pos-row">
+        <div class="field-g">
+          <span class="lbl">Position</span>
+          <div class="wm-pos" id="pos" role="group" aria-label="Position"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="tiled"> Tile across the whole photo</label>
+      </div>
+
+      <label class="field"><span class="row between"><span>Opacity</span><output class="mono" id="opv"></output></span><input type="range" id="opacity" min="5" max="100"></label>
+      <label class="field"><span class="row between"><span>Size</span><output class="mono" id="szv"></output></span><input type="range" id="size" min="3" max="90"></label>
+      <label class="field"><span class="row between"><span>Rotation</span><output class="mono" id="rov"></output></span><input type="range" id="rotation" min="-90" max="90"></label>
+      <label class="field"><span class="row between"><span id="mgl">Margin</span><output class="mono" id="mgv"></output></span><input type="range" id="margin" min="0" max="30"></label>
+      <div class="row">
+        <label class="field grow">Format
+          <select class="select" id="format"><option value="keep">Same as original</option><option value="jpeg">JPG</option><option value="png">PNG</option><option value="webp">WebP</option></select>
+        </label>
+        <label class="field grow"><span class="row between"><span>Quality</span><output class="mono" id="qv"></output></span><input type="range" id="quality" min="40" max="100"></label>
+      </div>
+    </section>
+
+    <section class="card stack">
+      <div class="row between">
+        <h2>Preview <small id="count"></small></h2>
+        <div class="row">
+          <button class="btn small" id="one" disabled><svg class="i"><use href="#i-download"/></svg>This photo</button>
+          <button class="btn primary small" id="zip" disabled><svg class="i"><use href="#i-download"/></svg><span id="zipLbl">Download all (.zip)</span></button>
+        </div>
+      </div>
+      <div class="empty" id="empty"><b>No photos yet</b>Drop photos on the left. The preview updates as you change the settings; full-resolution files are made when you download.</div>
+      <div class="wm-stage checker" id="stage" hidden><canvas id="cv" aria-label="Watermark preview"></canvas></div>
+      <ul class="wm-list" id="list"></ul>
+    </section>
+  </div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
